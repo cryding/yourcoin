@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<title>Address {{ address }} — YourCoin Explorer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:#0b0e14; color:#e8e8e8; margin:0; padding:2rem; }
+  h1 { color:#4dd0e1; font-size:1.2rem; word-break:break-all; }
+  .balance { font-size:1.8rem; color:#4dd0e1; margin:1rem 0; }
+  pre { background:#151a24; border-radius:10px; padding:1rem; overflow-x:auto; }
+  a { color:#4dd0e1; }
+</style>
+</head>
+<body>
+  <h1>{{ address }}</h1>
+  <div class="balance">{{ "%.8f"|format(balance) }} YRC</div>
+  <h3>Unspent Outputs</h3>
+  <pre>{{ utxos }}</pre>
+  <p><a href="/">&larr; Back to explorer</a></p>
+</body>
+</html>

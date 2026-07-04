@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<title>YourCoin (YRC) Explorer — {{ network }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:#0b0e14; color:#e8e8e8; margin:0; padding:2rem; }
+  h1 { color:#4dd0e1; margin-bottom:0.2rem; }
+  .stats { display:flex; gap:1.5rem; flex-wrap:wrap; margin:1rem 0 2rem; }
+  .card { background:#151a24; border-radius:10px; padding:1rem 1.5rem; min-width:150px; }
+  .card .label { font-size:0.8rem; color:#888; }
+  .card .value { font-size:1.3rem; font-weight:600; color:#4dd0e1; }
+  table { width:100%; border-collapse:collapse; background:#151a24; border-radius:10px; overflow:hidden; }
+  th, td { padding:0.7rem 1rem; text-align:left; border-bottom:1px solid #232a38; }
+  th { color:#888; font-weight:500; font-size:0.85rem; }
+  a { color:#4dd0e1; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .nav { margin-bottom:1.5rem; }
+  .nav a { margin-right:1.2rem; }
+</style>
+</head>
+<body>
+  <h1>⛓ YourCoin <span style="color:#888;font-size:1rem">YRC · {{ network }}</span></h1>
+  <div class="nav">
+    <a href="/">Explorer</a>
+    <a href="/explorer/richlist">Rich List</a>
+    <a href="/rest/supply">Supply Stats (JSON)</a>
+    <a href="/rest/mining-stats">Mining Stats (JSON)</a>
+  </div>
+  <div class="stats">
+    <div class="card"><div class="label">Height</div><div class="value">{{ height }}</div></div>
+    <div class="card"><div class="label">Circulating Supply</div><div class="value">{{ "%.2f"|format(supply) }} YRC</div></div>
+    <div class="card"><div class="label">Max Supply</div><div class="value">{{ "%.0f"|format(max_supply) }} YRC</div></div>
+    <div class="card"><div class="label">Mempool</div><div class="value">{{ mempool_size }} tx</div></div>
+  </div>
+  <h2>Latest Blocks</h2>
+  <table>
+    <tr><th>Height</th><th>Hash</th><th>Txs</th><th>Time</th></tr>
+    {% for b in blocks %}
+    <tr>
+      <td><a href="/explorer/block/{{ b.height }}">{{ b.height }}</a></td>
+      <td><a href="/explorer/block/{{ b.hash() }}">{{ b.hash()[:20] }}…</a></td>
+      <td>{{ b.transactions|length }}</td>
+      <td>{{ b.header.timestamp|round(0) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

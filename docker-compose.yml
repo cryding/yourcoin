@@ -1,0 +1,27 @@
+  version: "3.9"
+
+services:
+  node:
+    build: .
+    container_name: yourcoin-node
+    command: ["--network", "mainnet"]
+    ports:
+      - "8767:8767"   # P2P
+      - "8766:8766"   # RPC / REST / Explorer
+    volumes:
+      - yrc-data:/app/data
+    restart: unless-stopped
+
+  pool:
+    build: .
+    container_name: yourcoin-pool
+    entrypoint: ["python", "pool/stratum_server.py"]
+    command: ["--rpc", "http://node:8766/rpc", "--address", "REPLACE_WITH_POOL_PAYOUT_ADDRESS", "--port", "3333"]
+    depends_on:
+      - node
+    ports:
+      - "3333:3333"
+    restart: unless-stopped
+
+volumes:
+  yrc-data:

@@ -1,0 +1,10 @@
+flask>=3.0
+requests>=2.31
+cryptography>=41.0
+
+# Notes:
+# - ECDSA (SECP256K1) is implemented on top of `cryptography`, not the `ecdsa`
+#   PyPI package, so no extra install is needed on offline/Termux systems.
+# - base58 and BIP39-style mnemonics are implemented from scratch in
+#   core/base58.py and wallet/mnemonic_yrc.py -- no `base58` or `mnemonic`
+#   package dependency.
